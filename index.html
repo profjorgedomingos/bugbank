@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>BugBank QA Lab</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <div>
+      <span class="badge">LABORATÓRIO DE QA</span>
+      <h1>🐞 BugBank</h1>
+      <p>Um sistema propositalmente imperfeito. Sua missão é testar, investigar e documentar.</p>
+    </div>
+    <button id="resetBtn" class="ghost">Reiniciar laboratório</button>
+  </header>
+
+  <main>
+    <section class="mission">
+      <div>
+        <h2>Missão: encontre os bugs</h2>
+        <p>Teste entradas válidas, inválidas e limites. Não existe lista de bugs na tela: pense como QA.</p>
+      </div>
+      <div class="score"><strong id="testCount">0</strong><span>ações de teste</span></div>
+    </section>
+
+    <nav class="tabs" aria-label="Áreas do sistema">
+      <button class="tab active" data-tab="login">Login</button>
+      <button class="tab" data-tab="cadastro">Cadastro</button>
+      <button class="tab" data-tab="loja">Loja</button>
+      <button class="tab" data-tab="checkout">Checkout</button>
+      <button class="tab" data-tab="relatorio">Meu relatório</button>
+    </nav>
+
+    <section id="login" class="panel active">
+      <div class="card narrow">
+        <h2>Acesso do aluno</h2>
+        <label>RA</label>
+        <input id="ra" placeholder="Ex.: 12345678">
+        <label>Senha</label>
+        <input id="senha" type="password" placeholder="Mínimo 6 caracteres">
+        <button id="loginBtn">Entrar</button>
+        <div id="loginMsg" class="message"></div>
+        <p class="hint">Requisito: RA deve conter exatamente 8 números e a senha deve ter no mínimo 6 caracteres.</p>
+      </div>
+    </section>
+
+    <section id="cadastro" class="panel">
+      <div class="card">
+        <h2>Cadastro de cliente</h2>
+        <div class="grid">
+          <div><label>Nome</label><input id="nome" placeholder="Nome completo"></div>
+          <div><label>E-mail</label><input id="email" placeholder="nome@email.com"></div>
+          <div><label>Idade</label><input id="idade" type="number" placeholder="18 ou mais"></div>
+          <div><label>CPF</label><input id="cpf" placeholder="Somente números"></div>
+        </div>
+        <button id="cadastroBtn">Cadastrar</button>
+        <div id="cadastroMsg" class="message"></div>
+        <p class="hint">Requisitos: todos os campos obrigatórios; e-mail válido; idade mínima 18; CPF com 11 dígitos.</p>
+      </div>
+    </section>
+
+    <section id="loja" class="panel">
+      <div class="products">
+        <article class="product"><div class="emoji">⌨️</div><h3>Teclado QA</h3><p>R$ 120,00</p><button class="add" data-name="Teclado QA" data-price="120">Adicionar</button></article>
+        <article class="product"><div class="emoji">🖱️</div><h3>Mouse Tester</h3><p>R$ 80,00</p><button class="add" data-name="Mouse Tester" data-price="80">Adicionar</button></article>
+        <article class="product"><div class="emoji">🎧</div><h3>Headset Debug</h3><p>R$ 200,00</p><button class="add" data-name="Headset Debug" data-price="200">Adicionar</button></article>
+      </div>
+      <div class="card">
+        <h2>Carrinho</h2>
+        <div id="cart"></div>
+        <p class="total">Total exibido: <strong id="total">R$ 0,00</strong></p>
+      </div>
+    </section>
+
+    <section id="checkout" class="panel">
+      <div class="card narrow">
+        <h2>Finalizar compra</h2>
+        <label>Cupom</label>
+        <div class="inline"><input id="cupom" placeholder="Ex.: QA10"><button id="cupomBtn">Aplicar</button></div>
+        <label>Quantidade do pedido</label>
+        <input id="qtdPedido" type="number" value="1">
+        <button id="finalizarBtn">Finalizar pedido</button>
+        <div id="checkoutMsg" class="message"></div>
+        <p class="hint">Requisitos: QA10 concede 10% de desconto; quantidade mínima = 1; pedido sem itens não pode ser concluído.</p>
+      </div>
+    </section>
+
+    <section id="relatorio" class="panel">
+      <div class="card">
+        <h2>Registro de caso de teste</h2>
+        <div class="grid">
+          <div><label>ID</label><input id="ctId" placeholder="CT-001"></div>
+          <div><label>Cenário</label><input id="ctCenario" placeholder="Login com RA inválido"></div>
+          <div><label>Dados de entrada</label><input id="ctDados" placeholder="RA=ABC123"></div>
+          <div><label>Resultado esperado</label><input id="ctEsperado" placeholder="Rejeitar acesso"></div>
+          <div><label>Resultado obtido</label><input id="ctObtido" placeholder="Acesso permitido"></div>
+          <div><label>Status</label><select id="ctStatus"><option>Aprovado</option><option>Reprovado</option></select></div>
+        </div>
+        <button id="addCaseBtn">Adicionar ao relatório</button>
+        <div class="kpis">
+          <div><strong id="kTotal">0</strong><span>Executados</span></div>
+          <div><strong id="kPass">0</strong><span>Aprovados</span></div>
+          <div><strong id="kFail">0</strong><span>Reprovados</span></div>
+          <div><strong id="kRate">0%</strong><span>Taxa aprovação</span></div>
+        </div>
+        <div class="tableWrap"><table><thead><tr><th>ID</th><th>Cenário</th><th>Entrada</th><th>Esperado</th><th>Obtido</th><th>Status</th></tr></thead><tbody id="cases"></tbody></table></div>
+      </div>
+    </section>
+  </main>
+
+  <footer>BugBank QA Lab • material didático • bugs são intencionais 🐞</footer>
+  <script src="app.js"></script>
+</body>
+</html>
